@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# Secrets
+.env
+.env.local
+
+# Data - caches and trained models are large and local
+data/cache/fastf1/
+data/cache/app/
+data/models/
+data/mlflow/
+data/backtests/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Ruff
+.ruff_cache/
+
+# Pyright
+.pyright/
+
+# pytest
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# mypy
+.mypy_cache/
+
+# Streamlit
+.streamlit/secrets.toml

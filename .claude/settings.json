@@ -1,0 +1,62 @@
+{
+    "$schema": "https://json.schemastore.org/claude-code-settings.json",
+    "autoUpdatesChannel": "latest",
+    "env": {
+        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+        "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "85",
+        "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
+    },
+    "teammateMode": "auto",
+    "model": "claude-opus-4-6",
+    "effortLevel": "high",
+    "sandbox": {
+        "enabled": true,
+        "autoAllowBashIfSandboxed": true,
+        "excludedCommands": [
+            "docker"
+        ],
+        "network": {
+            "allowedDomains": [
+                "github.com",
+                "*.githubusercontent.com",
+                "registry.npmjs.org",
+                "*.npmjs.org",
+                "pypi.org",
+                "files.pythonhosted.org"
+            ]
+        }
+    },
+    "permissions": {
+        "defaultMode": "default",
+        "deny": [
+            "Read(~/.ssh/**)",
+            "Read(~/.aws/**)",
+            "Read(~/.gnupg/**)",
+            "Read(~/.config/gh/**)",
+            "Read(**/.env)",
+            "Read(**/.env.*)"
+        ],
+        "ask": [
+            "Bash(rm *)",
+            "Bash(mv *)",
+            "Bash(chmod *)",
+            "Bash(chown *)",
+            "Bash(sudo *)",
+            "Bash(git push*)",
+            "Bash(git reset --hard*)",
+            "Bash(git clean -f*)"
+        ],
+        "allow": [
+            "Bash(git status*)",
+            "Bash(git diff*)",
+            "Bash(git log*)",
+            "Bash(git show*)",
+            "Bash(git branch*)",
+            "Bash(ls*)",
+            "Bash(fd*)",
+            "Bash(rg*)",
+            "Bash(fzf*)",
+            "Bash(jq*)"
+        ]
+    }
+}
