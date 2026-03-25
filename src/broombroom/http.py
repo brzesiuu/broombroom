@@ -16,11 +16,9 @@ Usage:
 
 import threading
 import time
-from collections.abc import Generator
-from contextlib import contextmanager
 
 import httpx
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from broombroom.errors import APIError, RateLimitError
 from broombroom.logging import get_logger
