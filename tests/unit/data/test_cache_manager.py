@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from broombroom.data.cache.cache_manager import CacheManager, TTL_INFINITE
+from broombroom.data.cache.cache_manager import TTL_INFINITE, CacheManager
 
 
 @pytest.fixture()

@@ -40,6 +40,10 @@ from broombroom.data.models.results import (
     QualiResult,
     RaceResult,
 )
+from broombroom.data.models.session import (
+    SessionData,
+    SessionMeta,
+)
 from broombroom.data.models.stint import (
     Compound,
     PitStop,
@@ -85,6 +89,8 @@ __all__ = [
     "RaceResult",
     "SeasonSchedule",
     "SectorBreakdown",
+    "SessionData",
+    "SessionMeta",
     "SessionType",
     "Stint",
     "TeamFormSummary",

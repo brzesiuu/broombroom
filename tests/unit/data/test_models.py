@@ -237,8 +237,12 @@ class TestTyreStrategy:
     def test_stop_count(self) -> None:
         def _stint(num: int, compound: Compound, start: int, end: int) -> Stint:
             return Stint(
-                driver_code="NOR", stint_number=num, compound=compound,
-                start_lap=start, end_lap=end, tyre_age_at_start=0,
+                driver_code="NOR",
+                stint_number=num,
+                compound=compound,
+                start_lap=start,
+                end_lap=end,
+                tyre_age_at_start=0,
             )
 
         stints = [
