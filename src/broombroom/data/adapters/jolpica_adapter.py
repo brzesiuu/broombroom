@@ -19,7 +19,7 @@ from broombroom.data.models.results import (
     QualiResult,
     RaceResult,
 )
-from broombroom.errors import DataNotAvailableError
+from broombroom.errors import APIError, DataNotAvailableError
 from broombroom.http import RateLimitedSession
 from broombroom.logging import get_logger
 
@@ -171,7 +171,13 @@ class JolpicaAdapter:
     # ── HTTP helper ────────────────────────────────────────────────────────────
 
     def _get(self, path: str, limit: int = 30) -> dict:
-        return self._session.get(path, params={"limit": limit})
+        result = self._session.get(path, params={"limit": limit})
+        if not isinstance(result, dict):
+            raise APIError(
+                source=_SOURCE,
+                message=f"expected JSON object, got {type(result).__name__}",
+            )
+        return result
 
     # ── Parsers ────────────────────────────────────────────────────────────────
 

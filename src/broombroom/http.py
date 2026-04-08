@@ -113,10 +113,13 @@ class RateLimitedSession:
         self._client = make_client(timeout=timeout)
         self._max_retries = max_retries
 
-    def get(self, path: str, params: dict | None = None) -> dict:
+    def get(self, path: str, params: dict | None = None) -> dict | list:
         """Perform a GET request with rate limiting and automatic retry.
 
-        Returns the parsed JSON body as a dict.
+        Returns the parsed JSON body. Some APIs (jolpica) return a JSON
+        object, others (openf1) return a JSON array — callers must handle
+        both shapes or narrow the return type at the call site.
+
         Raises APIError on non-2xx responses after all retries are exhausted.
         """
         url = f"{self._base_url}/{path.lstrip('/')}"
@@ -127,7 +130,7 @@ class RateLimitedSession:
             retry=retry_if_exception_type((httpx.TimeoutException, httpx.NetworkError)),
             reraise=True,
         )
-        def _do_request() -> dict:
+        def _do_request() -> dict | list:
             self._bucket.acquire()
             log.debug("http_get", url=url, params=params)
             response = self._client.get(url, params=params)
