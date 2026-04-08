@@ -11,14 +11,14 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from broombroom.config import settings
-from broombroom.data.cache.cache_manager import CacheManager, TTL_INFINITE, TTL_SCHEDULE, TTL_STANDINGS
+from broombroom.data.cache.cache_manager import TTL_INFINITE, TTL_SCHEDULE, TTL_STANDINGS, CacheManager
+from broombroom.data.models.event import RaceEvent, SessionType
 from broombroom.data.models.results import (
     ConstructorStanding,
     DriverStanding,
     QualiResult,
     RaceResult,
 )
-from broombroom.data.models.event import RaceEvent, SessionType
 from broombroom.errors import DataNotAvailableError
 from broombroom.http import RateLimitedSession
 from broombroom.logging import get_logger
@@ -129,18 +129,13 @@ class JolpicaAdapter:
 
         path = f"f1/{year}/{round_str}/driverStandings.json" if round_number else f"f1/{year}/driverStandings.json"
         data = self._get(path, limit=25)
-        standings_list = (
-            data.get("MRData", {})
-            .get("StandingsTable", {})
-            .get("StandingsLists", [])
-        )
+        standings_list = data.get("MRData", {}).get("StandingsTable", {}).get("StandingsLists", [])
         if not standings_list:
             raise DataNotAvailableError(f"No driver standings for {year} round {round_str}")
 
         round_used = int(standings_list[0].get("round", round_number or 0))
         standings = [
-            self._parse_driver_standing(s, year, round_used)
-            for s in standings_list[0].get("DriverStandings", [])
+            self._parse_driver_standing(s, year, round_used) for s in standings_list[0].get("DriverStandings", [])
         ]
         self._cache.put(key, [s.model_dump(mode="json") for s in standings], ttl_seconds=ttl, source=_SOURCE)
         return standings
@@ -161,11 +156,7 @@ class JolpicaAdapter:
             else f"f1/{year}/constructorStandings.json"
         )
         data = self._get(path, limit=25)
-        standings_list = (
-            data.get("MRData", {})
-            .get("StandingsTable", {})
-            .get("StandingsLists", [])
-        )
+        standings_list = data.get("MRData", {}).get("StandingsTable", {}).get("StandingsLists", [])
         if not standings_list:
             raise DataNotAvailableError(f"No constructor standings for {year} round {round_str}")
 
@@ -211,9 +202,7 @@ class JolpicaAdapter:
                 minutes, rest = parts
                 seconds, *millis = rest.split(".")
                 ms = int(millis[0]) * 1000 if millis else 0
-                fastest_lap_time = timedelta(
-                    minutes=int(minutes), seconds=int(seconds), milliseconds=ms
-                )
+                fastest_lap_time = timedelta(minutes=int(minutes), seconds=int(seconds), milliseconds=ms)
 
         return RaceResult(
             season=year,
