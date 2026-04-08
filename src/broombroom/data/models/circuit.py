@@ -35,7 +35,9 @@ class CircuitInfo(BaseModel):
     name: str
     country: str
     locality: str
-    lap_length_km: float = Field(gt=0.0)
+    # Not always available at adapter load time — analysis layer can derive it
+    # from telemetry (fastf1 does not expose lap length as a scalar).
+    lap_length_km: float | None = Field(default=None, gt=0.0)
     corners: list[Corner] = Field(default_factory=list)
     drs_zones: list[DRSZone] = Field(default_factory=list)
     rotation: float = 0.0  # track map rotation in degrees (fastf1 convention)

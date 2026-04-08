@@ -137,7 +137,7 @@ class CacheManager:
 
 # ── TTL constants (use these when calling put()) ───────────────────────────────
 
-TTL_INFINITE = _INFINITE_TTL          # finished race sessions, historical results
-TTL_STANDINGS = 30 * 60               # 30 minutes — current-season standings
-TTL_SCHEDULE = 60 * 60               # 1 hour — season schedule
-TTL_LIVE = 5 * 60                    # 5 minutes — live/in-progress session data
+TTL_INFINITE = _INFINITE_TTL  # finished race sessions, historical results
+TTL_STANDINGS = 30 * 60  # 30 minutes — current-season standings
+TTL_SCHEDULE = 60 * 60  # 1 hour — season schedule
+TTL_LIVE = 5 * 60  # 5 minutes — live/in-progress session data

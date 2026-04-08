@@ -40,6 +40,10 @@ from broombroom.data.models.results import (
     QualiResult,
     RaceResult,
 )
+from broombroom.data.models.session import (
+    SessionData,
+    SessionMeta,
+)
 from broombroom.data.models.stint import (
     Compound,
     PitStop,
@@ -53,6 +57,7 @@ from broombroom.data.models.telemetry import (
     TelemetryMeta,
     WeatherRecord,
 )
+from broombroom.data.models.weekend import RaceWeekendData
 
 __all__ = [
     "AggregateMetrics",
@@ -83,8 +88,11 @@ __all__ = [
     "RaceMetrics",
     "RacePrediction",
     "RaceResult",
+    "RaceWeekendData",
     "SeasonSchedule",
     "SectorBreakdown",
+    "SessionData",
+    "SessionMeta",
     "SessionType",
     "Stint",
     "TeamFormSummary",
